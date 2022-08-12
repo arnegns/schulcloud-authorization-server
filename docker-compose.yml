@@ -24,12 +24,16 @@ services:
       - ${PUBLIC_PORT}:9000
       - ${ADMIN_PORT}:9001
     hostname: hydra.localhost
+    external_links:
+      - nextcloud
     environment:
       - VIRTUAL_HOST=hydra.localhost
       - SERVE_PUBLIC_PORT=9000
       - SERVE_ADMIN_PORT=9001
       - SECRETS_SYSTEM
       - DSN
+      - URLS_LOGOUT
+      - URLS_POST_LOGOUT_REDIRECT
       - URLS_SELF_ISSUER
       - URLS_LOGIN=${SC_FRONTEND}/oauth2/login
       - URLS_CONSENT=${SC_FRONTEND}/oauth2/consent
@@ -42,8 +46,6 @@ services:
     command: ["serve", "all", "${SERVE_PARAMS}"]
     deploy:
       replicas: 1
-      restart_policy:
-        condition: any
 
 volumes:
   data-hydra:
