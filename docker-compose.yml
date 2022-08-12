@@ -21,9 +21,13 @@ services:
   hydra-host:
     image: oryd/hydra:${HYDRA_VERSION}
     ports:
-      - ${PUBLIC_PORT}:4444
-      - ${ADMIN_PORT}:4445
+      - ${PUBLIC_PORT}:9000
+      - ${ADMIN_PORT}:9001
+    hostname: hydra.localhost
     environment:
+      - VIRTUAL_HOST=hydra.localhost
+      - SERVE_PUBLIC_PORT=9000
+      - SERVE_ADMIN_PORT=9001
       - SECRETS_SYSTEM
       - DSN
       - URLS_SELF_ISSUER
