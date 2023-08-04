@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
 
@@ -12,7 +12,7 @@ services:
       - 5432:5432
     volumes:
       - data-hydra:/var/lib/postgresql/data
-    restart: on-failure
+    restart: always
 
   hydra-migrate-database:
     image: oryd/hydra:${HYDRA_VERSION}
@@ -52,5 +52,6 @@ volumes:
 
 networks:
   default:
-    external:
-      name: schulcloudserver_schulcloud-server-network
+    name: schulcloudserver_schulcloud-server-network
+    external: true # to use if you want to use an existing network
+
